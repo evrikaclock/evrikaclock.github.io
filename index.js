@@ -1,3 +1,5 @@
+var currentRawData = "";
+
 var daysLabel = document.getElementById("days");
 var hoursLabel = document.getElementById("hours");
 var minutesLabel = document.getElementById("minutes");
@@ -12,6 +14,35 @@ function start(initSeconds, lastService, serviceCount) {
     lastServiceLabel.innerHTML = lastService;
     serviceCountLabel.innerHTML = serviceCount;
     setInterval(setTime, 1000);
+    setData();
+}
+
+function setData() {
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() { 
+        if (request.readyState == 4 && request.status == 200){
+            var rawData = request.responseText;
+            if (rawData !== currentRawData) {
+                var result = JSON.parse(rawData);
+
+                totalSeconds = getSeconds(new Date() - new Date(result.release_day));
+                lastServiceLabel.innerHTML = result.last_service;
+                serviceCountLabel.innerHTML = result.services_count;
+
+                currentRawData = rawData;
+            }
+        }
+    }
+
+    request.open("GET", "https://raw.githubusercontent.com/evrikaclock/evrikaclock.github.io.db/master/db.json", true);
+    request.send(null);
+
+    setTimeout(setData, 60 * 1000);
+}
+
+function getSeconds(date) {
+    return Math.floor(date / 1000);
 }
 
 function setTime() {
