@@ -8,13 +8,38 @@ var secondsLabel = document.getElementById("seconds");
 var lastServiceLabel = document.getElementById("last-service");
 var serviceCountLabel = document.getElementById("service-count");
 var totalSeconds = 0;
+var firework = JS_FIREWORKS.Fireworks({
+        id : 'fireworks-canvas',
+        hue : 120,
+        particleCount : 50,
+        delay : 0,
+        minDelay : 20,
+        maxDelay : 40,
+        boundaries : {
+            top: 50,
+            bottom: 240,
+            left: 50,
+            right: 590
+        },
+        fireworkSpeed : 2,
+        fireworkAcceleration : 1.05,
+        particleFriction : .95,
+        particleGravity : 1.5
+    });
 
 function start(initSeconds, lastService, serviceCount) {
+    setupFirework();
     totalSeconds = initSeconds
     lastServiceLabel.innerHTML = lastService;
     serviceCountLabel.innerHTML = serviceCount;
     setInterval(setTime, 1000);
     setData();
+}
+
+function setupFirework() {
+    var canvas = document.getElementById('fireworks-canvas');
+    canvas.style.top = (window.innerHeight - canvas.height) + 'px';
+    canvas.style.left = (window.innerWidth - canvas.width) / 2 + 'px';
 }
 
 function setData() {
@@ -29,6 +54,13 @@ function setData() {
                 totalSeconds = getSeconds(new Date() - new Date(result.release_day));
                 lastServiceLabel.innerHTML = result.last_service;
                 serviceCountLabel.innerHTML = result.services_count;
+
+                if (result.last_service === "Evrika.IB.OrganizationDispatcherService" || result.last_service === "Evrika.Domain.Staff.Service") {
+                    setupFirework();
+                    firework.start();
+                } else {
+                    firework.stop();
+                }
 
                 currentRawData = rawData;
             }

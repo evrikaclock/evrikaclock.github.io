@@ -18,26 +18,31 @@ html, body, .main {
     font-family: "Comic Sans MS", "Source Sans Pro", "Helvetica", "sans-serif";
     justify-content: center;
     color: #10F308;
+    z-index: -2;
 }
 
 .line {
     margin: 10px;
+    z-index: 0;
 }
 
 .timer {
     font-size: 200px;
     color: #8E055E;
     font-weight: 600;
+    z-index: 0;
 }
 
 .service-name {
     color: #00FFF7;
     font-size: 90px;
     font-weight: 600;
+    z-index: 0;
 }
 
 .service-count {
     color: #04966C;
     font-size: 90px;
     font-weight: 600;
+    z-index: 0;
 }
