@@ -7,15 +7,15 @@
     <body onload="start(0, 'loading...', 9999)">
         <canvas width="800" height="600" id="fireworks-canvas" style="position:absolute;z-index:0"></canvas>
         <main class="main">
-            <div class="line service">
-                <span>Последний выпиленный сервис: </span>
-                <span class="service-name" id="last-service"></span>
-            </div>
             <div class="line">
-                <span>Сервисов: </span>
+                <span>Legacy-сервисов на поддержке: </span>
                 <span class="service-count" id="service-count"></span>
             </div>
-            <div class="line">С выпила последнего сервиса: </div>
+            <div class="line service">
+                <span>Последний выпиленный: </span>
+                <span class="service-name" id="last-service"></span>
+            </div>
+            <div class="line">С выпила прошло: </div>
             <div class="line timer" id="last-removed-service">
                 <span id="days"></span>
                 <span>:</span>
